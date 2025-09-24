@@ -16,13 +16,16 @@ def closest_resistor_combo(resistors, target, max_resistors=3):
             best_total (float): The total resistance of the combination.
             error (float): The absolute difference from the target.
     """
+    # Filter out resistors less than 1% of target and greater than target
+    min_resistor = target * 0.01
+    filtered = [r for r in resistors if min_resistor <= r <= target]
+
     best_combo = None
     best_total = None
     min_error = float('inf')
 
     for n in range(1, max_resistors + 1):
-        # Allow reuse of resistors by generating all possible n-length combinations with replacement
-        for combo in product(resistors, repeat=n):
+        for combo in product(filtered, repeat=n):
             total = sum(combo)
             error = abs(total - target)
             if error < min_error:
@@ -35,6 +38,6 @@ def closest_resistor_combo(resistors, target, max_resistors=3):
 # Example usage:
 if __name__ == "__main__":
     resistors = [100, 220, 330, 470, 680, 1000]
-    target = 2123
+    target = 743
     combo, total, error = closest_resistor_combo(resistors, target)
     print(f"Best combo: {combo}, Total: {total}, Error: {error}")
