@@ -4,4 +4,24 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "kicad-symlib-utility>=1.0.0",
+]
+
+[ruff]
+line-length = 200
+select = ["E", "F", "W", "C90", "B", "N", "Q", "I", "T"]
+ignore = ["E501", "W503", "F403", "F405"]
+exclude = ["build", ".venv", "venv", "__pypackages__"]
+
+[tool.uv.sources]
+kicad-symlib-utility = {workspace = true}
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
+
+
+[tool.uv.workspace]
+members = ["packages/kicad-symlib-utility"]

@@ -1,0 +1,20 @@
+{
+    "python.testing.pytestArgs": [
+        "test"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "terminal.integrated.env.windows": {
+        "PYTHONPATH": "${workspaceFolder}\\src"
+    },
+    "terminal.integrated.env.linux": {  
+        "PYTHONPATH": "${workspaceFolder}/src"
+    }
+    ,
+    "python.testing.envFile": "${workspaceFolder}/.env"
+    ,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/packages/kicad-symlib-utility/src"
+    ]
+}
