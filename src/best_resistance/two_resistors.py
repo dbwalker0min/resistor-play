@@ -1,4 +1,4 @@
-from best_resistance.one_resistor import closest1
+from best_resistance.bests import closest1
 
 
 def _find_best_pair(
@@ -72,7 +72,11 @@ def closest2_parallel(resistance: float | int, resistor_values: dict[str, float]
     # perform the calculation in terms of conductance to make it easier
     target = 1/resistance
 
-    conductor_values = {1/v for k, v in resistor_values.values() if v != 0}
+    conductance_values = {1/v for _, v in resistor_values.values() if v != 0}
+    # Reduce the range of resistors to consider based on tolerance. Note that the
+    # tolerance is referred to the resistance, so we need to adjust it for conductance.
+    # The maximum resistance (minimum conductance) is the desired resistance.
+    # The minimum resistance (maximum conductance) is determined by the tolerance.
     test_conductances = [
         r
         for r in resistor_values.values()
