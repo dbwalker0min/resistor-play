@@ -19,6 +19,7 @@ kicad-symlib-utility = {workspace = true}
 
 [dependency-groups]
 dev = [
+    "inline-snapshot>=0.29.1",
     "pytest>=8.4.2",
 ]
 

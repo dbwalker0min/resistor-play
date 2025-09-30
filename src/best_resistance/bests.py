@@ -37,7 +37,8 @@ def best2s(rtarget: float, resistor_values: list[Resistor]) -> list[Resistor]:
     # By starting here, I don't repeat combinations.
     # I want to end at the resistor value that's just larger than the target value. If that resistor's
     # better, than I want to use it. The example is 1.999k
-    last_candidate = [r for r in resistor_values if r.value > rtarget][0]
+    # Find the first resistor value greater than the target resistance
+    last_candidate = next((r for r in resistor_values if r.value > rtarget), resistor_values[-1])
     print(f'{rtarget=}, {last_candidate.value=}')
     candidates = [r for r in resistor_values if rtarget/2 <= r.value <= last_candidate.value]
     for r_base in candidates:

@@ -5,6 +5,7 @@ from best_resistance.eseries import generate_e_series
 import pickle
 from pprint import pprint
 import csv
+from inline_snapshot import snapshot
 
 with open("test/data/resistor_values.pkl", "rb") as f:
     all_resistors = pickle.load(f)
@@ -23,14 +24,7 @@ def test_best_resistance1():
         curr for prev, curr in zip(bests, bests[1:]) if curr[1] != prev[1]
     ]
 
-    expected = [
-        (1000.0, "1.0k", 1000.0),
-        (1251.0, "1.5k", 1500.0),
-        (1851.0, "2.2k", 2200.0),
-    ]
-    for b, e in zip(bests, expected):
-        assert b[0] == approx(e[0])
-        assert b[2] == approx(e[2])
+    assert bests == snapshot()
 
 
 def test_best_resistance2s():
