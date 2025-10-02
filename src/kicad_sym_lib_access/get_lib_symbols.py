@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import re
+from best_resistance.types import Resistor
 
 from kicad_symlib_utility import KiCadSymbolLibrary
 
@@ -56,7 +57,7 @@ def real_resistor_value(value_str: str) -> float:
     raise ValueError(f"Could not parse resistor value: {value_str}")
 
 
-def read_resistor_values(library_name: str, keywords: list[str] | None = None) -> dict[str, float]:
+def read_resistor_values(library_name: str, keywords: list[str] | None = None) -> list[Resistor]:
     """Read resistor values from a KiCad symbol library file.
 
     Args:
@@ -94,4 +95,6 @@ def read_resistor_values(library_name: str, keywords: list[str] | None = None) -
             else:
                 raise e from e
 
-    return resistor_values
+    sorted_items = sorted(resistor_values.items(), key=lambda item: item[1])
+    return [Resistor(sym, val) for sym, val in sorted_items]
+    

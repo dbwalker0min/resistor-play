@@ -21,8 +21,31 @@ kicad-symlib-utility = {workspace = true}
 dev = [
     "inline-snapshot>=0.29.1",
     "pytest>=8.4.2",
+    "ruff>=0.13.0",
 ]
 
 
 [tool.uv.workspace]
 members = ["packages/kicad-symlib-utility"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = "src"
+
+[tool.inline-snapshot]
+# Pure formatting:
+format-command = "ruff format --stdin-filename {filename}"
+
+# (Optional) If you also want auto-fixes before formatting, use this instead:
+# format-command = "ruff check --fix --stdin-filename {filename} - | ruff format --stdin-filename {filename}"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+

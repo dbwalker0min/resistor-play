@@ -238,6 +238,7 @@ dependencies = [
 dev = [
     { name = "inline-snapshot" },
     { name = "pytest" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
@@ -247,6 +248,7 @@ requires-dist = [{ name = "kicad-symlib-utility", editable = "packages/kicad-sym
 dev = [
     { name = "inline-snapshot", specifier = ">=0.29.1" },
     { name = "pytest", specifier = ">=8.4.2" },
+    { name = "ruff", specifier = ">=0.13.0" },
 ]
 
 [[package]]

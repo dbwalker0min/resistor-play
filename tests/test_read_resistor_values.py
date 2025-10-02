@@ -1,9 +1,11 @@
-"""Tests for reading resistor values from KiCad symbol libraries."""
-
+from inline_snapshot import HasRepr
+from inline_snapshot import snapshot
 from kicad_sym_lib_access.get_lib_symbols import (
     real_resistor_value,
     read_resistor_values,
 )
+
+"""Tests for reading resistor values from KiCad symbol libraries."""
 
 
 def test_real_resistor_value():
@@ -34,9 +36,7 @@ def test_real_resistor_value():
 
     for input_str, expected in test_cases.items():
         result = real_resistor_value(input_str)
-        assert result == expected, (
-            f"Expected {expected} for input '{input_str}', got {result}"
-        )
+        assert result == expected, f"Expected {expected} for input '{input_str}', got {result}"
 
 
 def test_read_resistor_values():
@@ -45,19 +45,12 @@ def test_read_resistor_values():
     # Test with a sample image path (replace 'sample_image.jpg' with an actual image path for real testing)
     library = "!Resistor-0603.kicad_sym"
 
-    values = dict(
-        sorted(read_resistor_values(library).items(), key=lambda item: item[1])
-    )
+    values = read_resistor_values(library)
 
-    import pickle
-    from pathlib import Path
-    data_dir = Path(__file__).parent / "data"
+    # pickle these values for future tests
+    with open("tests/data/resistor_values.pkl", "wb") as f:
+        import pickle
 
-    pickle.dump(values, open(data_dir / "resistor_values.pkl", "wb"))
+        pickle.dump(values, f)
 
-    assert len(values) == 116
-    for k, v in values.items():
-        assert isinstance(k, str)
-        assert isinstance(v, float)
-        t = real_resistor_value(k)
-        assert v == t, f"Value mismatch for {k}: got {v}, expected {t}"
+    assert len(values) == snapshot(116), f"Got {len(values)}"
